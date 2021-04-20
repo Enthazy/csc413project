@@ -25,19 +25,19 @@ def read_random_data_batch(filepath, batch_size):
         songs.append(song)
     return np.array(songs), np.zeros(batch_size)
 
-def gen_train_datasets(size=10):
+def gen_train_datasets(genre,size=10):
     images, labels = read_random_data_batch(filepath, size)
     images = images.reshape(images.shape[0], images.shape[1], images.shape[2])
     for idx in range(size):
-        path = os.path.join('gandata/train', 'sample-{:06d}.png'.format(idx))
+        path = os.path.join('gandata',genre,'train', 'sample-{:06d}.png'.format(idx))
         imageio.imwrite(path, images[idx])
         print('Saved {}'.format(path))
 
-def gen_test_datasets(size=5):
+def gen_test_datasets(genre, size=5):
     images, labels = read_random_data_batch(filepath, size)
     images = images.reshape(images.shape[0], images.shape[1], images.shape[2])
     for idx in range(size):
-        path = os.path.join('gandata/test', 'sample-{:06d}.png'.format(idx))
+        path = os.path.join('gandata',genre,'test', 'sample-{:06d}.png'.format(idx))
         imageio.imwrite(path, images[idx])
         print('Saved {}'.format(path))
 
@@ -75,5 +75,5 @@ def display_pair(original, generated):
 # display_pair(songs, songs)
 
 if __name__ == '__main__':
-    gen_train_datasets(10)
-    gen_test_datasets(5)
+    gen_train_datasets("classical", 10)
+    gen_test_datasets('classical',5)
